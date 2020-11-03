@@ -89,6 +89,9 @@ def run_word(sequence, num_samples):
         print(e)
         return 500
 
+@app.route("/",methods=['GET'])
+def main():
+    return flask.Response('처음')
 @app.route("/gpt2-business/<type>", methods=['POST'])
 def gpt2_business(type):
     if type != 'short' and type != 'long' :
