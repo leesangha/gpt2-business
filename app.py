@@ -58,7 +58,7 @@ def run_generation(sequence, num_samples, length):
         result = dict()
         for idx, sample_output in enumerate(sample_outputs):
             result[idx] = tokenizer.decode(sample_output.tolist()[min_length:], skip_special_tokens=True)
-
+        
         return result
 
     except Exception as e:
@@ -91,22 +91,22 @@ def run_word(sequence, num_samples):
 
 @app.route("/",methods=['GET'])
 def main():
-    return flask.Response('처음')
+    return Response('success',status=200)
 @app.route("/gpt2-business/<type>", methods=['POST'])
 def gpt2_business(type):
+    print('in')
     if type != 'short' and type != 'long' :
         return jsonify({'error': 'This is the wrong address.'}), 400
 
     # 큐에 쌓여있을 경우,
     if requests_queue.qsize() > BATCH_SIZE:
         return jsonify({'error': 'Too Many Requests'}), 429
-    my_res = flask.Response('응답')
-    my_res.headers["Access-Control-Allow-Origin"]="*"
+
+   
     try:
         args = []
         text = request.form['text']
         num_samples = int(request.form['num_samples'])
-
         args.append(text)
         args.append(num_samples)
 
@@ -127,8 +127,8 @@ def gpt2_business(type):
     # Queue - wait & check
     while 'output' not in req:
         time.sleep(CHECK_INTERVAL)
-    print(req['output'])
-    return req['output']
+ 
+    return jsonify(req['output'])
 
 # Health Check
 @app.route("/healthz", methods=["GET"])
