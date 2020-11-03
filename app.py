@@ -97,7 +97,8 @@ def gpt2_business(type):
     # 큐에 쌓여있을 경우,
     if requests_queue.qsize() > BATCH_SIZE:
         return jsonify({'error': 'Too Many Requests'}), 429
-
+    my_res = flask.Response('응답')
+    my_res.headers["Access-Control-Allow-Origin"]="*"
     try:
         args = []
         text = request.form['text']
