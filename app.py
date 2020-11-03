@@ -89,7 +89,7 @@ def run_word(sequence, num_samples):
         print(e)
         return 500
 
-@app.route("/gpt2-cover-letter/<type>", methods=['POST'])
+@app.route("/gpt2-business/<type>", methods=['POST'])
 def gpt2_cover_letter(type):
     if type != 'short' and type != 'long' :
         return jsonify({'error': 'This is the wrong address.'}), 400
