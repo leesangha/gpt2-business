@@ -1,0 +1,82 @@
+openapi: 3.0.1
+
+info:
+  title: ainize-gpt2-business
+  description: |
+    Business style gpt-2 API
+  contact:
+    name: Ainizer - Sangha Lee
+  version: "1.0"
+  license:
+    name: Apache License 2.0
+    url: https://github.com/huggingface/transformers/blob/master/LICENSE
+
+servers:
+  - url: https://main-gpt2-business-leesangha.endpoint.ainize.ai/
+
+paths:
+  /gpt2-business/short:
+    post:
+      requestBody:
+        required: true
+        description: |
+          Specify a length of the text and set the start prompt for the text to be generated.
+          The length must can be parse to integer
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                num_samples:
+                  type: string
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+
+        "429":
+          description: Busy to server, please retry again.
+
+        "500":
+          description: Server side error
+
+  /gpt2-business/long:
+    post:
+      requestBody:
+        required: true
+        description: |
+          Specify a length of the text and set the start prompt for the text to be generated.
+          The length must can be parse to integer
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                num_samples:
+                  type: string
+                length:
+                  type: string
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          description: Bad Request
+
+        "429":
+          description: Busy to server, please retry again.
+
+        "500":
+          description: Server side error
