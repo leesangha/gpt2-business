@@ -90,7 +90,7 @@ def run_word(sequence, num_samples):
         return 500
 
 @app.route("/gpt2-business/<type>", methods=['POST'])
-def gpt2_cover_letter(type):
+def gpt2_business(type):
     if type != 'short' and type != 'long' :
         return jsonify({'error': 'This is the wrong address.'}), 400
 
@@ -123,7 +123,7 @@ def gpt2_cover_letter(type):
     # Queue - wait & check
     while 'output' not in req:
         time.sleep(CHECK_INTERVAL)
-
+    print(req['output'])
     return req['output']
 
 # Health Check
